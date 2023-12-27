@@ -4,6 +4,7 @@ import Shapes from "@/components/Shapes";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StoreProvider from "./StoreProvider";
+import MainLayout from "./MainLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,12 +16,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} relative`}>
+      <body className={`${inter.className} relative bg-gray-800 text-white`}>
         <StoreProvider>
           <Header />
-          {children}
+          <MainLayout>{children}</MainLayout>
           <Footer />
-          <div className="fixed top-0 left-0 -z-10 w-screen h-screen flex items-center justify-center ">
+          <div className="fixed inset-0 -z-10 flex items-center justify-center ">
             <Shapes />
           </div>
         </StoreProvider>

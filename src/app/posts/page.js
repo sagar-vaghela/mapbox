@@ -1,4 +1,5 @@
 import PostCard from "@/components/PostCard";
+import Link from "next/link";
 import React from "react";
 
 async function getPosts() {
@@ -12,13 +13,22 @@ async function getPosts() {
 const Posts = async () => {
   const posts = await getPosts();
   return (
-    <div className="px-16 py-4">
+    <>
+      <div className="self-start relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-300 to-yellow-300 rounded-md"></div>
+        <Link
+          href="/"
+          className="block relative text-black font-bold bg-gray-300 bg-opacity-50 hover:bg-opacity-5 transition-all duration-200 rounded-md px-6 py-3"
+        >
+          Back
+        </Link>
+      </div>
       <div className="posts grid grid-cols-3 gap-4">
         {posts.slice(0, 40).map((post) => (
           <PostCard post={post} />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
