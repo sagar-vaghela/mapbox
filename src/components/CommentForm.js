@@ -1,16 +1,46 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const CommentForm = ({ onCommentSubmit, postId }) => {
+const CommentForm = ({ onCommentSubmit, postId,fetchData }) => {
   const { handleSubmit, control, register, reset } = useForm();
 
-  const onSubmit = (data) => {
-    onCommentSubmit({
-      ...data,
-      time: new Date().toLocaleString(),
-      postId: postId,
-    });
-    reset();
+  const onSubmit = async (data) => {
+    // onCommentSubmit({
+    //   ...data,
+    //   time: new Date().toLocaleString(),
+    //   postId: postId,
+    // });
+
+    try {
+      const response = await fetch(
+        "http://localhost:8000/comment/createComments",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            uid: 47,
+            comment: data.comment,
+            pid: postId,
+            uname: data.name,
+            time: new Date().toLocaleString()
+          })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to submit comment");
+      }
+
+      const responseData = await response.json();
+      onCommentSubmit(responseData.data);
+      fetchData();
+      reset();
+    } catch (error) {
+      console.error("Error submitting comment:", error.message);
+    }
   };
 
   return (

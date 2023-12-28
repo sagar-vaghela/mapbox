@@ -4,11 +4,10 @@ import React from "react";
 
 const PostCard = ({ post }) => {
   const router = useRouter();
-
   return (
     <div
       className="bg-gray-800 hover:bg-gradient-to-tl from-purple-300 via-pink-300 to-yellow-300 transition-all duration-300 bg-opacity-40 text-white p-1 rounded-lg cursor-pointer"
-      onClick={() => router.push(`posts/${post.id}`)}
+      onClick={() => router.push(`posts/${post.post_id}`)}
     >
       <div className="bg-gray-700 p-4 h-full flex flex-col items-start gap-2 rounded-md bg-opacity-60 hover:bg-opacity-85 backdrop-blur-[15px]">
         <img
@@ -28,7 +27,7 @@ const PostCard = ({ post }) => {
             );
           })} */}
         <h2 className="text-xl w-full font-semibold pb-2">{post.title}</h2>
-        <p className="text-sm">{post.body}</p>
+        <p className="text-sm">{post.sub_title}</p>
         {/* <button className="">Read more...</button> */}
       </div>
     </div>

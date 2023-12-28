@@ -5,8 +5,10 @@ export const fetchPostComments = createAsyncThunk(
   async (id) => {
     try {
       const response = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${id}/comments`
+        // `https://jsonplaceholder.typicode.com/posts/${id}/comments`
+        `http://localhost:8000/comment/getCommentsByPostId/${id}`
       );
+
       if (!response.ok) {
         throw new Error("Failed to fetch posts");
       }
