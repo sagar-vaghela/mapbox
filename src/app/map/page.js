@@ -27,7 +27,111 @@ export default function Map() {
             setLat(map.current.getCenter().lat.toFixed(4));
             setZoom(map.current.getZoom().toFixed(2));
         });
-    });
+
+        // Load GeoJSON data
+        map.current.on('load', () => {
+            // Example Point GeoJSON
+            map.current.addSource('points', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: [
+                        {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'Point',
+                                coordinates: [lng, lat]
+                            },
+                            properties: {
+                                title: 'Marker',
+                                icon: 'marker'
+                            }
+                        }
+                        // Add more Point features as needed
+                    ]
+                }
+            });
+
+            // Example Line GeoJSON
+            map.current.addSource('lines', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: [
+                        {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'LineString',
+                                coordinates: [
+                                    [lng - 0.1, lat - 0.1],
+                                    [lng + 0.1, lat + 0.1],
+                                    [lng + 0.2, lat - 0.2]
+                                ]
+                            }
+                        }
+                        // Add more Line features as needed
+                    ]
+                }
+            });
+
+            // Example Polygon GeoJSON
+            map.current.addSource('polygons', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: [
+                        {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'Polygon',
+                                coordinates: [
+                                    [
+                                        [lng - 0.1, lat - 0.1],
+                                        [lng + 0.1, lat - 0.1],
+                                        [lng + 0.1, lat + 0.1],
+                                        [lng - 0.1, lat + 0.1],
+                                        [lng - 0.1, lat - 0.1]
+                                    ]
+                                ]
+                            }
+                        }
+                        // Add more Polygon features as needed
+                    ]
+                }
+            });
+
+            // Add layers for each GeoJSON type with proper styling
+            map.current.addLayer({
+                id: 'points',
+                type: 'symbol',
+                source: 'points',
+                layout: {
+                    'icon-image': '{icon}-15',
+                    'icon-allow-overlap': true
+                }
+            });
+
+            map.current.addLayer({
+                id: 'lines',
+                type: 'line',
+                source: 'lines',
+                paint: {
+                    'line-color': '#888',
+                    'line-width': 2
+                }
+            });
+
+            map.current.addLayer({
+                id: 'polygons',
+                type: 'fill',
+                source: 'polygons',
+                paint: {
+                    'fill-color': '#088',
+                    'fill-opacity': 0.4
+                }
+            });
+        });
+    }, [lng, lat, zoom]);
 
     return (
         <div>
