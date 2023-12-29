@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchPostComments = createAsyncThunk(
-  'posts/fetchPostComments',
+export const fetchCommentsCount = createAsyncThunk(
+  'posts/fetchCommentsCount',
   async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/comment/getCommentsByPostId/${id}`
+        `http://localhost:8000/comment/getPostsWithCommentCount`
       );
       if (!response.ok) {
         throw new Error('Failed to fetch posts');
@@ -18,8 +18,8 @@ export const fetchPostComments = createAsyncThunk(
   }
 );
 
-const commentsSlice = createSlice({
-  name: 'comments',
+const commentsCountSlice = createSlice({
+  name: 'count',
   initialState: {
     data: [],
     loading: false,
@@ -28,18 +28,18 @@ const commentsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPostComments.pending, (state) => {
+      .addCase(fetchCommentsCount.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchPostComments.fulfilled, (state, action) => {
+      .addCase(fetchCommentsCount.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(fetchPostComments.rejected, (state) => {
+      .addCase(fetchCommentsCount.rejected, (state) => {
         state.loading = false;
         state.error = 'Failed to fetch posts';
       });
   },
 });
 
-export default commentsSlice.reducer;
+export default commentsCountSlice.reducer;

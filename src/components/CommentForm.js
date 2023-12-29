@@ -1,40 +1,37 @@
-import { fetchSinglePost } from "@/lib/features/posts/singlePostSlice";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import { fetchPostComments } from '@/lib/features/posts/commentsSlice';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
-const CommentForm = ({ onCommentSubmit, postId }) => {
-  const { handleSubmit, control, register, reset } = useForm();
-const dispatch = useDispatch();
+const CommentForm = ({ postId }) => {
+  const { handleSubmit, register, reset } = useForm();
+  const dispatch = useDispatch();
   const onSubmit = async (data) => {
     try {
       const response = await fetch(
-        "http://localhost:8000/comment/createComments",
+        'http://localhost:8000/comment/createComments',
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json',
           },
-
           body: JSON.stringify({
             comment: data.comment,
             pid: postId,
             uname: data.name,
-            time: new Date().toLocaleString()
-          })
+            time: new Date().toLocaleString(),
+          }),
         }
       );
 
       if (!response.ok) {
-        throw new Error("Failed to submit comment");
+        throw new Error('Failed to submit comment');
       }
 
-      const responseData = await response.json();
-      dispatch(fetchSinglePost(postId));
-      onCommentSubmit(responseData.data);
+      dispatch(fetchPostComments(postId));
       reset();
     } catch (error) {
-      console.error("Error submitting comment:", error.message);
+      console.error('Error submitting comment:', error.message);
     }
   };
 
@@ -45,27 +42,27 @@ const dispatch = useDispatch();
         <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-md">
           <div className="mb-4">
             <input
-              {...register("name")}
+              {...register('name')}
               type="text"
               id="name"
               name="name"
               placeholder="Your name here..."
-              className="mt-1 p-2 px-4 bg-gray-700 border border-gray-600 rounded-md w-full placeholder:text-gray-300"
+              className="mt-1 p-2 px-4 bg-gray-700 border-2 border-gray-600 rounded-md w-full focus:border-yellow-500 focus-visible:outline-none placeholder:text-gray-300"
             />
           </div>
           <div className="mb-4">
             <textarea
-              {...register("comment")}
+              {...register('comment')}
               id="comment"
               name="comment"
               rows="4"
               placeholder="Your comment here..."
-              className="mt-1 p-2 px-4 bg-gray-700 border border-gray-600 rounded-md w-full placeholder:text-gray-300"
+              className="mt-1 p-2 px-4 bg-gray-700 border-2 border-gray-600 rounded-md w-full focus:border-yellow-500 focus-visible:outline-none placeholder:text-gray-300"
             ></textarea>
           </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+            className="bg-gray-700 border-2 border-yellow-500 text-white py-2 px-4 rounded-md focus-visible:outline-none"
           >
             Submit Comment
           </button>

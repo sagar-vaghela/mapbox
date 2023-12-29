@@ -1,42 +1,28 @@
-"use client";
-import PostCard from "@/components/PostCard";
-import PostPage from "@/components/PostPage";
-import { fetchPosts } from "@/lib/features/posts/postsSlice";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+'use client';
+import PostPage from '@/components/PostPage';
+import { fetchSinglePost } from '@/lib/features/posts/singlePostSlice';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Post = ({ params }) => {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts.data);
-  const loading = useSelector((state) => state.posts.loading);
-
+  const posts = useSelector((state) => state.singlePost.data);
+  const loading = useSelector((state) => state.singlePost.loading);
 
   useEffect(() => {
-    dispatch(fetchPosts(params.postId));
+    dispatch(fetchSinglePost(params.postId));
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   if (!params.userpostId) {
-  //     router.push("/");
-  //   }
-  // }, [params.userpostId]);
-
-
   return (
-    <>
+    <div className="min-h-[calc(100vh-144px)] max-w-6xl mx-auto px-16 flex flex-col gap-6">
       {loading ? (
         <div className="flex items-center justify-center">
           <div className="loader"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* {singleUser?.map((userPosts) => {
-            return <PostCard userPosts={userPosts} />;
-          })} */}
-          <PostPage userPosts={posts} />
-        </div>
+        <PostPage userPosts={posts} postId={params.postId} />
       )}
-    </>
+    </div>
   );
 };
 

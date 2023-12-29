@@ -1,10 +1,8 @@
-"use client";
-import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import ArrowRight from "@/assets/icons/ArrowRight";
-import { fetchUsers } from "@/lib/features/posts/usersSlice";
-import UserCard from "@/components/UserCard";
+'use client';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchUsers } from '@/lib/features/posts/usersSlice';
+import UserCard from '@/components/UserCard';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -16,16 +14,12 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <div className="self-end relative">
+    <div className="min-h-[calc(100vh-144px)] max-w-6xl mx-auto px-16 flex flex-col gap-6">
+      <div className="self-start relative">
         <div className="absolute inset-0 bg-gradient-to-r from-violet-300 to-yellow-300 rounded-md"></div>
-        <Link
-          href="/posts"
-          className="flex items-center gap-0.5 relative text-black font-bold bg-gray-300 bg-opacity-50 hover:bg-opacity-5 transition-all duration-200 rounded-md px-6 py-2 pr-5"
-        >
-          See All Posts
-          <ArrowRight size={28} />
-        </Link>
+        <p className="flex items-center gap-0.5 relative text-black font-bold rounded-md px-6 py-2 pr-5">
+          List of Users
+        </p>
       </div>
       {loading ? (
         <div className="flex items-center justify-center">
@@ -38,7 +32,7 @@ const Home = () => {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

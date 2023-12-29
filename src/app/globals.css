@@ -12,6 +12,7 @@
   .animation-delay-2000 {
     animation-delay: 2s;
   }
+
   .animation-delay-4000 {
     animation-delay: 4s;
   }
@@ -26,9 +27,10 @@
   /* color: #000; */
   @apply text-yellow-400;
 }
+
 .loader:before,
 .loader:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   top: 0;
@@ -39,6 +41,7 @@
   transform: rotateX(70deg);
   animation: 1s spin linear infinite;
 }
+
 .loader:after {
   /* color: #ff3d00; */
   @apply text-purple-400;
@@ -50,6 +53,7 @@
   0% {
     transform: translate(-50%, -50%) rotateZ(0deg);
   }
+
   100% {
     transform: translate(-50%, -50%) rotateZ(360deg);
   }
@@ -59,6 +63,7 @@
   0% {
     transform: translate(-50%, -50%) rotate(0deg);
   }
+
   100% {
     transform: translate(-50%, -50%) rotate(-360deg);
   }
@@ -69,25 +74,36 @@
   100% {
     box-shadow: 0.2em 0px 0 0px currentcolor;
   }
+
   12% {
     box-shadow: 0.2em 0.2em 0 0 currentcolor;
   }
+
   25% {
     box-shadow: 0 0.2em 0 0px currentcolor;
   }
+
   37% {
     box-shadow: -0.2em 0.2em 0 0 currentcolor;
   }
+
   50% {
     box-shadow: -0.2em 0 0 0 currentcolor;
   }
+
   62% {
     box-shadow: -0.2em -0.2em 0 0 currentcolor;
   }
+
   75% {
     box-shadow: 0px -0.2em 0 0 currentcolor;
   }
+
   87% {
     box-shadow: 0.2em -0.2em 0 0 currentcolor;
   }
+}
+
+.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+  display: none !important;
 }

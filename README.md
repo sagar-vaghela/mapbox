@@ -1,37 +1,78 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NextJS | API Integration | mapbox GL | taiwind CSS
 
-## Getting Started
+This is a React Application with TypeScript based E-commerce app and configured with:
 
-First, run the development server:
+1. **Linters:** ESLint and Prettier.
+2. **Folders:** `app`, `map`, `users`, `posts`, `assets`, `components`, `lib` and `features` (Folder Structure).
+3. **Tailwind CSS:** configured Tailwind CSS for better styling.
+4. **Redux-toolkit:** for state management.
+
+## Project structure
+
+The app has the following structure:
+
+`app`, `map`, `users`, `posts`, `assets`, `icons`, `components`, `lib` and `features`
+
+- `components`: Components that can be used accross the app.
+- `map`: Contains mapbox map page.
+- `users`: Contains users page.
+- `posts`: Contains posts page and indevidual post page.
+- `store`: Redux store which Contains single object with holind entire data of application.
+- `icons`: Static SVG Icons.
+- `lib`: Contains redux toolkit including reducers and store.
+- `features`: Contains reducers that calls the APIs.
+
+### Tasks : What I done.
+
+1. Create NextJS Application based blogs app.
+2. Used [Tailwind CSS](https://tailwindcss.com/) for design.
+3. Used my own ideas for design.
+4. App perform like below step:
+   - Home Screen:
+     - Display a list of user cards.
+     - Click on a user card to navigate to the User's Posts screen.
+   - User's Posts Screen:
+     - Show a list of posts associated with the selected user.
+     - Click on any post to go to the Post Detail Page.
+   - Post Detail Page:
+     - Display detailed information about the selected post.
+     - All comments are listed below after the Post.
+     - There is a comment form if you wish to comment on any post.
+   - Map Page:
+     - Can open map page by clicking 'map' from header
+     - Integrate mapbox GL for map.
+     - Added a marker, line and a polygon using geoJSON
+5. Made app reponsive whenever i could.
+6. Divide components to keep it simple. It can be improvised more.
+7. Setup ESLint for Code standardization.
+8. Setup Prettier for Code format.
+9. WriteTechnical documentation on README.md file for better understading.
+
+## Prerequisites
+
+To set up the codebase and the required dependencies, simply run the following command.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+$ npm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running the app
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+# development
+$ npm run start
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# production
+$ npm run build && npm run start
+```
 
-## Learn More
+### Notes
 
-To learn more about Next.js, take a look at the following resources:
+1. Used fetch for API call. we can also use [Axios](https://github.com/axios/axios).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### I Make sure below things for this app.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# mapbox
+1. _Structure of the code:_ both in terms of the actual code and the organization of files/folders.
+2. _Next patterns:_ efficient and well-structure code.
+3. _Documentation:_ clear and well commented your code.
+4. _Git processes:_ clear and well-structured your commits and commit messages are.
