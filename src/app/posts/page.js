@@ -21,7 +21,7 @@ const Posts = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-violet-300 to-yellow-300 rounded-md"></div>
         <Link
           href="/"
-          className="flex items-center gap-0.5 relative text-black font-bold bg-gray-300 bg-opacity-50 hover:bg-opacity-5 transition-all duration-200 rounded-md px-6 py-3 pl-3"
+          className="flex items-center gap-0.5 relative text-black font-bold bg-gray-300 bg-opacity-50 hover:bg-opacity-5 transition-all duration-200 rounded-md px-6 py-2 pl-3"
         >
           <ArrowLeft size={28} />
           Back
