@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const CommentForm = ({ onCommentSubmit, postId,fetchData }) => {
+const CommentForm = ({ onCommentSubmit, postId }) => {
   const { handleSubmit, control, register, reset } = useForm();
 
   const onSubmit = async (data) => {
@@ -36,7 +36,6 @@ const CommentForm = ({ onCommentSubmit, postId,fetchData }) => {
 
       const responseData = await response.json();
       onCommentSubmit(responseData.data);
-      fetchData();
       reset();
     } catch (error) {
       console.error("Error submitting comment:", error.message);

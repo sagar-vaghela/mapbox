@@ -1,35 +1,18 @@
 "use client";
 import PostPage from "@/components/PostPage";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPostComments } from "@/lib/features/posts/commentsSlice";
 
 const Comments = ({ postId }) => {
 
-  const [comments, setComments] = useState([]);
-  // const dispatch = useDispatch();
-  // const comments = useSelector((state) => state.postComments.data);
-  // const loading = useSelector((state) => state.postComments.loading);
+  const dispatch = useDispatch();
+  const comments = useSelector((state) => state.postComments.data);
+  const loading = useSelector((state) => state.postComments.loading);
 
-  // useEffect(() => {
-  //   comments.length === 0 && dispatch(fetchPostComments(postId));
-  // }, [dispatch]);
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`http://localhost:8000/comment/getCommentsByPostId/${postId}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      setComments(data);
-    } catch (error) {
-      console.error('Error fetching post data:', error);
-    }
-  };
   useEffect(() => {
-    fetchData();
-  }, []);
+     dispatch(fetchPostComments(postId));
+  }, [postId]);
 
   console.log('comments :>> ', comments);
 

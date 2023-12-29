@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import CommentForm from "./CommentForm";
 import Comments from "./Comments";
+import { useDispatch } from "react-redux";
+import { fetchPostComments } from "@/lib/features/posts/commentsSlice";
 
 const PostPage = ({ postId,post }) => {
-
+  const dispatch = useDispatch();
   const [postData, setPostData] = useState({});
   const handleCommentSubmit = (comment) => {
     console.log("Comment submitted:", comment);
   };
+
   const fetchData = async () => {
     try {
       const response = await fetch(`http://localhost:8000/blogPost/getpost/${postId}`);
@@ -16,6 +19,7 @@ const PostPage = ({ postId,post }) => {
       }
       const data = await response.json();
       if(response.ok){
+        dispatch(fetchPostComments(postId));
         setPostData(data);
       }
     } catch (error) {
