@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchPosts = createAsyncThunk("posts/fetchPosts", async (id) => {
+export const fetchUsers = createAsyncThunk("posts/fetchUsers", async () => {
   try {
-    const response = await fetch(`http://localhost:8000/getpost/${id}`);
+    const response = await fetch("http://localhost:8000/getUsers");
     if (!response.ok) {
       throw new Error("Failed to fetch posts");
     }
@@ -13,28 +13,28 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async (id) => {
   }
 });
 
-const postsSlice = createSlice({
+const usersSlice = createSlice({
   name: "posts",
   initialState: {
     data: [],
     loading: false,
-    error: null,
+    error: null
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPosts.pending, (state) => {
+      .addCase(fetchUsers.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchPosts.fulfilled, (state, action) => {
+      .addCase(fetchUsers.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(fetchPosts.rejected, (state) => {
+      .addCase(fetchUsers.rejected, (state) => {
         state.loading = false;
         state.error = "Failed to fetch posts";
       });
-  },
+  }
 });
 
-export default postsSlice.reducer;
+export default usersSlice.reducer;

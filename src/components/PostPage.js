@@ -1,34 +1,22 @@
 import React, { useEffect, useState } from "react";
 import CommentForm from "./CommentForm";
 import Comments from "./Comments";
-import { useDispatch } from "react-redux";
-import { fetchPostComments } from "@/lib/features/posts/commentsSlice";
+import { useDispatch ,useSelector} from "react-redux";
+import { fetchSinglePost } from "@/lib/features/posts/singlePostSlice";
 
-const PostPage = ({ postId,post }) => {
+const PostPage = ({userPosts, postId }) => {
   const dispatch = useDispatch();
-  const [postData, setPostData] = useState({});
+  // const postData = useSelector((state) => state.singlePost.data);
   const handleCommentSubmit = (comment) => {
     console.log("Comment submitted:", comment);
   };
+  // useEffect(() => {
+  //   postData.length === 0 && dispatch(fetchSinglePost(postId));
+  // }, [dispatch]);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`http://localhost:8000/blogPost/getpost/${postId}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      if(response.ok){
-        dispatch(fetchPostComments(postId));
-        setPostData(data);
-      }
-    } catch (error) {
-      console.error('Error fetching post data:', error);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, [postId]);
+  console.log('userPosts :>> ', userPosts);
+
+  console.log('postId :>> ', postId);
   
   return (
     <div className="flex flex-col gap-4">
@@ -38,7 +26,7 @@ const PostPage = ({ postId,post }) => {
             src={
               "https://static.vecteezy.com/system/resources/previews/015/573/452/original/sunset-landscape-with-bird-silhouettes-free-vector.jpg"
             }
-            alt={postData && postData?.name}
+            alt={userPosts && userPosts?.name}
             className="w-full object-cover rounded aspect-video mb-4"
           />
           {/* --- image from api --- */}
@@ -52,18 +40,18 @@ const PostPage = ({ postId,post }) => {
               />
             );
           })} */}
-          <h3 className="text-2xl text-bold">{ postData && postData?.title}</h3>
-          <p>{postData && postData?.sub_title}</p>
+          <h3 className="text-2xl text-bold">{ userPosts && userPosts?.title}</h3>
+          <p>{userPosts && userPosts?.sub_title}</p>
           <br />
-          <p>{postData && postData?.description}</p>
-          {/* <p>{postData && postData?.publishdate}</p> */}
+          <p>{userPosts && userPosts?.description}</p>
+          {/* <p>{userPosts && userPosts?.publishdate}</p> */}
           <br />
-          <p>Name :{postData && postData?.name}</p>
+          <p>{userPosts && userPosts?.name}</p>
         </div>
       </div>
       <h2 className="text-xl px-1">Comments</h2>
       <Comments postId={postId} />
-      <CommentForm onCommentSubmit={handleCommentSubmit} postId={postId} fetchData={fetchData}/>
+      <CommentForm onCommentSubmit={handleCommentSubmit} postId={postId}/>
     </div>
   );
 };

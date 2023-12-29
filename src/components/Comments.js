@@ -9,12 +9,11 @@ const Comments = ({ postId }) => {
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.postComments.data);
   const loading = useSelector((state) => state.postComments.loading);
+console.log('postId :>> ', postId);
+  // useEffect(() => {
+  //    dispatch(fetchPostComments(postId));
+  // }, [postId]);
 
-  useEffect(() => {
-     dispatch(fetchPostComments(postId));
-  }, [postId]);
-
-  console.log('comments :>> ', comments);
 
   return (
     <div className="flex flex-col">

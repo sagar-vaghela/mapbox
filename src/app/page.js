@@ -1,20 +1,18 @@
 "use client";
 import Link from "next/link";
-import PostCard from "@/components/PostCard";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchPosts } from "@/lib/features/posts/postsSlice";
+import { useEffect } from "react";
 import ArrowRight from "@/assets/icons/ArrowRight";
-import { useRouter } from "next/navigation";
+import { fetchUsers } from "@/lib/features/posts/usersSlice";
+import UserCard from "@/components/UserCard";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
-  const posts = useSelector((state) => state.posts.data);
-  const loading = useSelector((state) => state.posts.loading);
+  const users = useSelector((state) => state.users.data);
+  const loading = useSelector((state) => state.users.loading);
 
   useEffect(() => {
-    posts.length === 0 && dispatch(fetchPosts());
+    users.length === 0 && dispatch(fetchUsers());
   }, [dispatch]);
 
   return (
@@ -35,8 +33,8 @@ const Home = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {posts.slice(0, 5).map((post) => (
-            <PostCard post={post} />
+          {users.map((user) => (
+            <UserCard user={user} />
           ))}
         </div>
       )}

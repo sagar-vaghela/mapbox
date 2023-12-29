@@ -1,16 +1,12 @@
+import { fetchSinglePost } from "@/lib/features/posts/singlePostSlice";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 const CommentForm = ({ onCommentSubmit, postId }) => {
   const { handleSubmit, control, register, reset } = useForm();
-
+const dispatch = useDispatch();
   const onSubmit = async (data) => {
-    // onCommentSubmit({
-    //   ...data,
-    //   time: new Date().toLocaleString(),
-    //   postId: postId,
-    // });
-
     try {
       const response = await fetch(
         "http://localhost:8000/comment/createComments",
@@ -21,7 +17,6 @@ const CommentForm = ({ onCommentSubmit, postId }) => {
           },
 
           body: JSON.stringify({
-            uid: 47,
             comment: data.comment,
             pid: postId,
             uname: data.name,
@@ -35,6 +30,7 @@ const CommentForm = ({ onCommentSubmit, postId }) => {
       }
 
       const responseData = await response.json();
+      dispatch(fetchSinglePost(postId));
       onCommentSubmit(responseData.data);
       reset();
     } catch (error) {

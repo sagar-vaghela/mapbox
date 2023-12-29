@@ -1,13 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchSinglePost = createAsyncThunk(
-  "posts/fetchSinglePost",
+export const fetchSingleUser = createAsyncThunk(
+  "posts/fetchSingleUser",
   async (id) => {
     try {
-      const response = await fetch(
-        // `https://jsonplaceholder.typicode.com/posts/${id}`
-        `http://localhost:8000/blogPost/getpost/${id}`
-      );
+      const response = await fetch(`http://localhost:8000/getPostByUid/${id}`);
       if (!response.ok) {
         throw new Error("Failed to fetch posts");
       }
@@ -19,28 +16,28 @@ export const fetchSinglePost = createAsyncThunk(
   }
 );
 
-const singlePostSlice = createSlice({
-  name: "singlePost",
+const singleUserSlice = createSlice({
+  name: "singleUser",
   initialState: {
     data: [],
     loading: false,
-    error: null,
+    error: null
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchSinglePost.pending, (state) => {
+      .addCase(fetchSingleUser.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchSinglePost.fulfilled, (state, action) => {
+      .addCase(fetchSingleUser.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(fetchSinglePost.rejected, (state) => {
+      .addCase(fetchSingleUser.rejected, (state) => {
         state.loading = false;
         state.error = "Failed to fetch posts";
       });
-  },
+  }
 });
 
-export default singlePostSlice.reducer;
+export default singleUserSlice.reducer;
